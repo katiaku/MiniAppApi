@@ -37,7 +37,7 @@ const addStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
     try {
-        let params = [req.body.first_name, req.body.last_name, req.body.group_id, req.body.enrollment_year, req.query.student_id];
+        let params = [req.body.first_name, req.body.last_name, req.body.group_id, req.body.enrollment_year, req.body.student_id];
         let sql = `UPDATE students 
                     SET first_name = ?, last_name = ?, group_id = ?, enrollment_year = ? 
                     WHERE student_id = ?`;
@@ -50,7 +50,7 @@ const updateStudent = async (req, res) => {
 
 const deleteStudent = async (req, res) => {
     try {
-        let params = [req.query.student_id];
+        let params = [req.body.student_id];
         let sql = `DELETE FROM students WHERE student_id = ?`;
         let [result] = await pool.query(sql, params);
         res.send(result);

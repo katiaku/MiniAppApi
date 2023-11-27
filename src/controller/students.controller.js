@@ -37,9 +37,11 @@ const addStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
     try {
-        let params = [req.body.first_name, req.body.last_name, req.body.group_id, req.body.enrollment_year, req.body.student_id];
+        let params = [req.body.first_name, req.body.last_name, req.body.group_id, 
+            req.body.enrollment_year, req.body.student_id];
         let sql = `UPDATE students 
-                    SET first_name = ?, last_name = ?, group_id = ?, enrollment_year = ? 
+                    SET first_name = COALESCE(?, first_name), last_name = COALESCE(?, last_name), 
+                    group_id = COALESCE(?, group_id), enrollment_year = COALESCE(?, enrollment_year) 
                     WHERE student_id = ?`;
         let [result] = await pool.query(sql, params);
         res.send(result);

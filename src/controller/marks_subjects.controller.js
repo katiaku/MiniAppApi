@@ -3,7 +3,7 @@ const { pool } = require('../db');
 const getAvgGradeByStudent = async (req, res) => {
     try {
         let params = [req.query.student_id];
-        let sql = `SELECT AVG(mark) FROM marks WHERE student_id = ?`;
+        let sql = `SELECT AVG(mark) AS average FROM marks WHERE student_id = ?`;
         let [result] = await pool.query(sql, params);
         res.send(result);
     } catch (err) {
